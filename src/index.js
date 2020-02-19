@@ -4,7 +4,7 @@ import {
 } from "hotpot-jsonapi"
 import Deserializer from './lib/jsonapi-serializer/deserializer'
 import {URLBuilder} from './url-builder'
-import {HttpClient} from './http'
+import {HttpClient} from './http-client'
 
 const builder = new URLBuilder()
 

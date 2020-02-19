@@ -1,44 +1,13 @@
-import {
-  getDefaultURLBuilder
-} from './url-builder'
-
 export class HttpClient {
   constructor(urlBuilder, options) {
-    // 兼容老的host地址字符串的写法
-    if (typeof urlBuilder === 'string') {
-      this.urlBuilder = getDefaultURLBuilder(urlBuilder)
-    } else {
-      this.urlBuilder = urlBuilder
-    }
-
     const defaultOptions = {
-      identityKey: 'identifying',
       responseProcess: (res) => res.data,
     }
 
     options = Object.assign({}, defaultOptions, options)
 
-    this.identityKey = options.identityKey;
-    this.responseProcess = options.responseProcess
-  }
-
-  setURLBuilder(urlBuilder) {
     this.urlBuilder = urlBuilder
-  }
-
-  getURLBuilder() {
-    return this.urlBuilder
-  }
-
-  /**
-   * @deprecated
-   */
-  setHost(host) {
-    this.host = host
-  }
-
-  setIdentityKey(key) {
-    this.identityKey = key
+    this.responseProcess = options.responseProcess
   }
 
   fetch(path, options, withToken = false) {
@@ -98,34 +67,4 @@ export class HttpClient {
       })
     })
   }
-
-  anonymousRequest(path, options = {}) {
-    options.header = {
-      Accept: 'application/json',
-      ...options.header
-    }
-
-    return this.fetch(path, options)
-  }
-
-  authedRequest(path, options = {}, withToken = false) {
-    const identity = wx.getStorageSync(this.identityKey) || {}
-    if (typeof identity.sessid === 'undefined') {
-      // TODO 当用户未登录情况下，调用authed request 将被触发一个权限异常
-      console.error(`授权请求${path}时，身份信息丢失`)
-      throw 'Identity miss'
-    }
-
-    options.header = {
-      Accept: 'application/json',
-      Authorization: `Bearer ${identity.jwt}`,
-      Cookie: `${identity.session_name}=${identity.sessid}`,
-      ...options.header,
-    }
-
-    return this.fetch(path, options, withToken)
-  }
 }
-
-const http = new HttpClient(getDefaultURLBuilder())
-export default http
