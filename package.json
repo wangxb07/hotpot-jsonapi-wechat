@@ -1,0 +1,33 @@
+{
+  "name": "hotpot-jsonapi-wechat",
+  "version": "1.0.0",
+  "description": "Jsonapi http client for wechat",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangxb07/hotpot-jsonapi-wechat.git"
+  },
+  "keywords": [
+    "jsonapi",
+    "wechat"
+  ],
+  "author": "barry_01@beeh.plus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wangxb07/hotpot-jsonapi-wechat/issues"
+  },
+  "homepage": "https://github.com/wangxb07/hotpot-jsonapi-wechat#readme",
+  "dependencies": {
+    "hotpot-jsonapi": "^1.0.2-alpha7",
+    "inflected": "^2.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-jest": "^25.1.0",
+    "jest": "^25.1.0"
+  }
+}
